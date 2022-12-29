@@ -198,6 +198,7 @@ public class New_Appointment extends javax.swing.JFrame {
         String time = time_txt.getText();
         String datetime = date+" "+time;
         int c;
+        boolean error = false;
         
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -208,8 +209,7 @@ public class New_Appointment extends javax.swing.JFrame {
             ResultSet rs = query.executeQuery();
             ResultSetMetaData Rss = rs.getMetaData();
             c = Rss.getColumnCount();
-            
-            System.out.println(rs.getRow() == 0);
+           
             
             try{
                 if(rs.getRow() == 0){
@@ -222,21 +222,36 @@ public class New_Appointment extends javax.swing.JFrame {
                 System.out.println(e); 
             }
             
-            query = con1.prepareStatement("INSERT INTO appointment(patient_name, date, result) VALUES (?, ?, null)");
-            query.setString(1, name);
-            query.setString(2, datetime);
+            
+            try{
+                query = con1.prepareStatement("INSERT INTO appointment(patient_name, date, result) VALUES (?, ?, null)");
+                query.setString(1, name);
+                query.setString(2, datetime);
 
-            query.executeUpdate();
+                query.executeUpdate();
+                error = false;
+            }catch(java.sql.SQLIntegrityConstraintViolationException e){
+                //reset input fields
+                date_txt.setText("");
+                time_txt.setText("");
+                //NOTIFY THE USER
+                JOptionPane.showMessageDialog(this, "Time overlap!"); 
+                //print the error
+                System.out.println(e);
+                error = true;
+            }
+            
             
             //NOTIFY THE USER
-            JOptionPane.showMessageDialog(this, "New Appointment Scheduled!");
-            
-            
-            //reset text fields
-            name_txt.setText("");
-            phone_number_txt.setText("");
-            date_txt.setText("");
-            time_txt.setText("");
+            if(!error){
+                JOptionPane.showMessageDialog(this, "New Appointment Scheduled!");
+
+                //reset text fields
+                name_txt.setText("");
+                phone_number_txt.setText("");
+                date_txt.setText("");
+                time_txt.setText("");
+            }
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(New_Appointment.class.getName()).log(Level.SEVERE, null, ex);

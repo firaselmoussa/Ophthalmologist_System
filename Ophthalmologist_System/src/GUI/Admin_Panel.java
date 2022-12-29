@@ -27,7 +27,7 @@ public class Admin_Panel extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        add_appointment_btn = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -48,7 +48,12 @@ public class Admin_Panel extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nav", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153))); // NOI18N
 
-        jButton1.setText("New Appointment");
+        add_appointment_btn.setText("New Appointment");
+        add_appointment_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                add_appointment_btnActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Appointments");
 
@@ -60,7 +65,7 @@ public class Admin_Panel extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(add_appointment_btn)
                 .addGap(31, 31, 31))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -77,7 +82,7 @@ public class Admin_Panel extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(add_appointment_btn)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -272,6 +277,12 @@ public class Admin_Panel extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void add_appointment_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_appointment_btnActionPerformed
+        // TODO add your handling code here:
+        New_Appointment new_appointment = new New_Appointment();
+        new_appointment.setVisible(true);
+    }//GEN-LAST:event_add_appointment_btnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -308,7 +319,7 @@ public class Admin_Panel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton add_appointment_btn;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
