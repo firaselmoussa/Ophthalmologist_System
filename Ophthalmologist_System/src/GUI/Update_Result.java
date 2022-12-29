@@ -179,11 +179,14 @@ public class Update_Result extends javax.swing.JFrame {
             query.executeUpdate();
             
             
+            update_patient_last_result();
+            JOptionPane.showMessageDialog(this, "Result Updated!");
+            
+            //reset form
             app_date_txt.setText("");
             patient_name_output.setText("");
             phone_number_output.setText("");
             result_txt.setText("");
-            JOptionPane.showMessageDialog(this, "Result Updated!");
             
         } catch (SQLException ex) {
             Logger.getLogger(Update_Result.class.getName()).log(Level.SEVERE, null, ex);
@@ -191,6 +194,30 @@ public class Update_Result extends javax.swing.JFrame {
         
     }//GEN-LAST:event_update_btnActionPerformed
 
+    
+    //UPDATE PATIENTS LAST RESULT
+    //9-12-2022 1:12:00
+    public void update_patient_last_result() throws SQLException{
+        
+        query = con1.prepareStatement("SELECT result FROM appointment WHERE patient_name = ? ORDER BY date DESC;");
+        query.setString(1, patient_name_output.getText());
+        ResultSet rs = query.executeQuery();
+        
+        if(rs.next()){
+            String last_result = rs.getString("result");
+            
+            //UPDATE
+            query = con1.prepareStatement("Update patient SET last_result = ? WHERE name = ?");
+            query.setString(1, last_result);
+            query.setString(2, patient_name_output.getText());
+            
+            query.executeUpdate();
+        }
+
+        
+    }
+
+    
     private void search_date_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_date_btnActionPerformed
         // TODO add your handling code here:
         String date = app_date_txt.getText();
