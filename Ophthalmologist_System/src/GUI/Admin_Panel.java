@@ -54,8 +54,8 @@ public class Admin_Panel extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         appointments_table = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
+        appointment_name_txt = new javax.swing.JTextField();
+        search_appointment_btn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Admin Panel");
@@ -219,16 +219,16 @@ public class Admin_Panel extends javax.swing.JFrame {
 
         jLabel2.setText("Search by patient name :");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        appointment_name_txt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                appointment_name_txtActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Search");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        search_appointment_btn.setText("Search");
+        search_appointment_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                search_appointment_btnActionPerformed(evt);
             }
         });
 
@@ -243,9 +243,9 @@ public class Admin_Panel extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(appointment_name_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(search_appointment_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -254,8 +254,8 @@ public class Admin_Panel extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5))
+                    .addComponent(appointment_name_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(search_appointment_btn))
                 .addGap(25, 25, 25)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
                 .addContainerGap())
@@ -304,13 +304,21 @@ public class Admin_Panel extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_search_patient_btnActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void appointment_name_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appointment_name_txtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_appointment_name_txtActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void search_appointment_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_appointment_btnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+        String patient_name = appointment_name_txt.getText();
+        try {
+            refresh_apointments_table(patient_name);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Admin_Panel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin_Panel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_search_appointment_btnActionPerformed
 
     private void add_appointment_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_appointment_btnActionPerformed
         // TODO add your handling code here:
@@ -379,7 +387,7 @@ public class Admin_Panel extends javax.swing.JFrame {
             if(patient_name == null)
                 query = con1.prepareStatement("SELECT * FROM appointment");
             else{
-                query = con1.prepareStatement("SELECT * FROM patient WHERE patient_name = ?");
+                query = con1.prepareStatement("SELECT * FROM appointment WHERE patient_name = ?");
                 query.setString(1, patient_name);
             }
             
@@ -447,10 +455,10 @@ public class Admin_Panel extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add_appointment_btn;
+    private javax.swing.JTextField appointment_name_txt;
     private javax.swing.JTable appointments_table;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -458,9 +466,9 @@ public class Admin_Panel extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTable patients_table;
     private javax.swing.JButton refresh_patients_table_btn;
+    private javax.swing.JButton search_appointment_btn;
     private javax.swing.JButton search_patient_btn;
     private javax.swing.JTextField search_patient_txt;
     // End of variables declaration//GEN-END:variables
