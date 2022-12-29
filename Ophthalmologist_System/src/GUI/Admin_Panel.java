@@ -48,6 +48,7 @@ public class Admin_Panel extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         search_patient_txt = new javax.swing.JTextField();
         search_patient_btn = new javax.swing.JButton();
+        refresh_patients_table_btn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -115,7 +116,7 @@ public class Admin_Panel extends javax.swing.JFrame {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -129,8 +130,6 @@ public class Admin_Panel extends javax.swing.JFrame {
         jScrollPane1.setViewportView(patients_table);
         if (patients_table.getColumnModel().getColumnCount() > 0) {
             patients_table.getColumnModel().getColumn(0).setResizable(false);
-            patients_table.getColumnModel().getColumn(1).setResizable(false);
-            patients_table.getColumnModel().getColumn(2).setResizable(false);
         }
 
         jLabel1.setText("Search by patient name :");
@@ -142,6 +141,13 @@ public class Admin_Panel extends javax.swing.JFrame {
             }
         });
 
+        refresh_patients_table_btn.setText("↻");
+        refresh_patients_table_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refresh_patients_table_btnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -149,13 +155,16 @@ public class Admin_Panel extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(search_patient_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(search_patient_btn, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(search_patient_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(refresh_patients_table_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -165,9 +174,10 @@ public class Admin_Panel extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(search_patient_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(search_patient_btn))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1)
+                    .addComponent(search_patient_btn)
+                    .addComponent(refresh_patients_table_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -246,7 +256,7 @@ public class Admin_Panel extends javax.swing.JFrame {
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5))
                 .addGap(25, 25, 25)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -307,6 +317,17 @@ public class Admin_Panel extends javax.swing.JFrame {
         new_appointment.setVisible(true);
         new_appointment.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_add_appointment_btnActionPerformed
+
+    private void refresh_patients_table_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refresh_patients_table_btnActionPerformed
+        try {
+            // TODO add your handling code here:
+            refresh_patient_table(null);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Admin_Panel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin_Panel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_refresh_patients_table_btnActionPerformed
 
     //REFRESH PATIENT TABLE
     private void refresh_patient_table(String name) throws ClassNotFoundException, SQLException{
@@ -405,6 +426,7 @@ public class Admin_Panel extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTable patients_table;
+    private javax.swing.JButton refresh_patients_table_btn;
     private javax.swing.JButton search_patient_btn;
     private javax.swing.JTextField search_patient_txt;
     // End of variables declaration//GEN-END:variables
