@@ -27,6 +27,7 @@ public class Update_Result extends javax.swing.JFrame {
     public Update_Result() {
         initComponents();
         update_btn.setEnabled(false);
+        this.setTitle("Update Result");
     }
 
     /**
