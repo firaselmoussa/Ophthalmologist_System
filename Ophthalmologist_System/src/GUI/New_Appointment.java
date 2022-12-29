@@ -4,6 +4,22 @@
  */
 package GUI;
 
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.util.Date;
+import java.sql.Timestamp;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author yasmin
@@ -167,12 +183,66 @@ public class New_Appointment extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    Connection con1;
+    PreparedStatement query;
+    
     private void name_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_name_txtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_name_txtActionPerformed
 
     private void submit_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submit_btnActionPerformed
-        // TODO add your handling code here:  
+        // TODO add your handling code here: 
+        String name = name_txt.getText();
+        String phone_number = phone_number_txt.getText();
+        String date = date_txt.getText();
+        String time = time_txt.getText();
+        String datetime = date+" "+time;
+        int c;
+        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con1 = DriverManager.getConnection("jdbc:mysql://localhost/ophthalmologist_db", "root", "");
+  
+            query = con1.prepareStatement("SELECT COUNT(*) FROM patient WHERE name = ?");
+            query.setString(1, name);
+            ResultSet rs = query.executeQuery();
+            ResultSetMetaData Rss = rs.getMetaData();
+            c = Rss.getColumnCount();
+            
+            System.out.println(rs.getRow() == 0);
+            
+            try{
+                if(rs.getRow() == 0){
+                    query = con1.prepareStatement("INSERT INTO patient(name, phone_number, last_result) VALUES (?, ?, null)");
+                    query.setString(1, name);
+                    query.setString(2, phone_number);
+                    query.executeUpdate();
+                }
+            }catch(java.sql.SQLIntegrityConstraintViolationException e){
+                System.out.println(e); 
+            }
+            
+            query = con1.prepareStatement("INSERT INTO appointment(patient_name, date, result) VALUES (?, ?, null)");
+            query.setString(1, name);
+            query.setString(2, datetime);
+
+            query.executeUpdate();
+            
+            //NOTIFY THE USER
+            JOptionPane.showMessageDialog(this, "New Appointment Scheduled!");
+            
+            
+            //reset text fields
+            name_txt.setText("");
+            phone_number_txt.setText("");
+            date_txt.setText("");
+            time_txt.setText("");
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(New_Appointment.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(New_Appointment.class.getName()).log(Level.SEVERE, null, ex);
+        } 
         
     }//GEN-LAST:event_submit_btnActionPerformed
 
