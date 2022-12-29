@@ -42,7 +42,6 @@ public class Admin_Panel extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         add_appointment_btn = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         patients_table = new javax.swing.JTable();
@@ -70,9 +69,7 @@ public class Admin_Panel extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Appointments");
-
-        jButton3.setText("Patients");
+        jButton2.setText("Update Result");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -80,14 +77,11 @@ public class Admin_Panel extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(add_appointment_btn)
-            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jButton3)
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addComponent(jButton2)
                 .addGap(18, 18, 18)
                 .addComponent(add_appointment_btn)
@@ -473,7 +467,6 @@ public class Admin_Panel extends javax.swing.JFrame {
     private javax.swing.JTextField appointment_name_txt;
     private javax.swing.JTable appointments_table;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
