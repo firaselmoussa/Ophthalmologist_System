@@ -13,6 +13,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,6 +26,7 @@ public class Update_Result extends javax.swing.JFrame {
      */
     public Update_Result() {
         initComponents();
+        update_btn.setEnabled(false);
     }
 
     /**
@@ -47,7 +49,7 @@ public class Update_Result extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         phone_number_output = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        update_btn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,10 +85,10 @@ public class Update_Result extends javax.swing.JFrame {
 
         jLabel7.setText("Result:");
 
-        jButton2.setText("Update");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        update_btn.setText("Update");
+        update_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                update_btnActionPerformed(evt);
             }
         });
 
@@ -122,7 +124,7 @@ public class Update_Result extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2)))
+                        .addComponent(update_btn)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -149,7 +151,7 @@ public class Update_Result extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(update_btn)
                 .addContainerGap())
         );
 
@@ -165,9 +167,29 @@ public class Update_Result extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_app_date_txtActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void update_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update_btnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        String new_result = result_txt.getText();
+        
+        try {
+            query = con1.prepareStatement("UPDATE appointment SET result = ? WHERE patient_name = ?");
+            query.setString(1, new_result);
+            query.setString(2, patient_name_output.getText());
+            
+            query.executeUpdate();
+            
+            
+            app_date_txt.setText("");
+            patient_name_output.setText("");
+            phone_number_output.setText("");
+            result_txt.setText("");
+            JOptionPane.showMessageDialog(this, "Result Updated!");
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Update_Result.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_update_btnActionPerformed
 
     private void search_date_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_date_btnActionPerformed
         // TODO add your handling code here:
@@ -180,9 +202,7 @@ public class Update_Result extends javax.swing.JFrame {
             
             query = con1.prepareStatement("SELECT * FROM appointment JOIN patient ON  patient_name = patient.name WHERE date = ?");
             query.setString(1, date);
-            
-            
-                
+
                 ResultSet rs = query.executeQuery();
                 ResultSetMetaData Rss = rs.getMetaData();
                 
@@ -191,14 +211,14 @@ public class Update_Result extends javax.swing.JFrame {
                     patient_name_output.setText(rs.getString("name"));
                     phone_number_output.setText(rs.getString("phone_number"));
                     result_txt.setText(rs.getString("result"));
+                    update_btn.setEnabled(true);
                     
                 }else{
+                    update_btn.setEnabled(true);
                     patient_name_output.setText("NO DATA");
                     phone_number_output.setText("NO DATA");
                     result_txt.setText("NO DATA");
                 }
-                
-
             
         } catch (SQLException ex) {
             Logger.getLogger(Update_Result.class.getName()).log(Level.SEVERE, null, ex);
@@ -244,7 +264,6 @@ public class Update_Result extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField app_date_txt;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -255,5 +274,6 @@ public class Update_Result extends javax.swing.JFrame {
     private javax.swing.JLabel phone_number_output;
     private javax.swing.JTextArea result_txt;
     private javax.swing.JButton search_date_btn;
+    private javax.swing.JButton update_btn;
     // End of variables declaration//GEN-END:variables
 }
