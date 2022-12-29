@@ -26,7 +26,7 @@ public class Admin_Panel extends javax.swing.JFrame {
      */
     public Admin_Panel() throws ClassNotFoundException, SQLException {
         initComponents();
-        refresh_patient_table();
+        refresh_patient_table(null);
     }
 
     /**
@@ -301,7 +301,7 @@ public class Admin_Panel extends javax.swing.JFrame {
     }//GEN-LAST:event_add_appointment_btnActionPerformed
 
     //REFRESH PATIENT TABLE
-    private void refresh_patient_table() throws ClassNotFoundException, SQLException{
+    private void refresh_patient_table(String name) throws ClassNotFoundException, SQLException{
         
         int c;
 
@@ -309,7 +309,12 @@ public class Admin_Panel extends javax.swing.JFrame {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con1 = DriverManager.getConnection("jdbc:mysql://localhost/ophthalmologist_db", "root", "");
             
-            query = con1.prepareStatement("SELECT * FROM patient");
+            if(name == null)
+                query = con1.prepareStatement("SELECT * FROM patient");
+            else{
+                query = con1.prepareStatement("SELECT * FROM patient WHERE name = ?");
+                query.setString(1, name);
+            }
             
             ResultSet rs = query.executeQuery();
             ResultSetMetaData Rss = rs.getMetaData();
