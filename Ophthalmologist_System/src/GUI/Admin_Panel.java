@@ -408,7 +408,7 @@ public class Admin_Panel extends javax.swing.JFrame {
             if(patient_name == null)
                 query = con1.prepareStatement("SELECT * FROM appointment");
             else{
-                query = con1.prepareStatement("SELECT * FROM appointment WHERE patient_name = ?");
+                query = con1.prepareStatement("SELECT * FROM appointment WHERE patient_name = ? ORDER BY date DESC");
                 query.setString(1, patient_name);
             }
             

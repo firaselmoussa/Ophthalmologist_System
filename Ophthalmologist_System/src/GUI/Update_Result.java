@@ -199,7 +199,7 @@ public class Update_Result extends javax.swing.JFrame {
     //9-12-2022 1:12:00
     public void update_patient_last_result() throws SQLException{
         
-        query = con1.prepareStatement("SELECT result FROM appointment WHERE patient_name = ? ORDER BY date DESC;");
+        query = con1.prepareStatement("SELECT result FROM appointment WHERE patient_name = ? AND result IS NOT NULL ORDER BY date DESC");
         query.setString(1, patient_name_output.getText());
         ResultSet rs = query.executeQuery();
         
