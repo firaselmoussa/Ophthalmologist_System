@@ -41,7 +41,7 @@ public class Admin_Panel extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         add_appointment_btn = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        update_result_btn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         patients_table = new javax.swing.JTable();
@@ -69,20 +69,25 @@ public class Admin_Panel extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Update Result");
+        update_result_btn.setText("Update Result");
+        update_result_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                update_result_btnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(update_result_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(add_appointment_btn)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton2)
+                .addComponent(update_result_btn)
                 .addGap(18, 18, 18)
                 .addComponent(add_appointment_btn)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -346,6 +351,13 @@ public class Admin_Panel extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_refresh_appointments_table_btnActionPerformed
 
+    private void update_result_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update_result_btnActionPerformed
+        // TODO add your handling code here:
+        Update_Result update_result = new Update_Result();
+        update_result.setVisible(true);
+        update_result.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_update_result_btnActionPerformed
+
     //REFRESH PATIENT TABLE
     private void refresh_patient_table(String name) throws ClassNotFoundException, SQLException{
         
@@ -466,7 +478,6 @@ public class Admin_Panel extends javax.swing.JFrame {
     private javax.swing.JButton add_appointment_btn;
     private javax.swing.JTextField appointment_name_txt;
     private javax.swing.JTable appointments_table;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -480,5 +491,6 @@ public class Admin_Panel extends javax.swing.JFrame {
     private javax.swing.JButton search_appointment_btn;
     private javax.swing.JButton search_patient_btn;
     private javax.swing.JTextField search_patient_txt;
+    private javax.swing.JButton update_result_btn;
     // End of variables declaration//GEN-END:variables
 }

@@ -172,9 +172,9 @@ public class Update_Result extends javax.swing.JFrame {
         String new_result = result_txt.getText();
         
         try {
-            query = con1.prepareStatement("UPDATE appointment SET result = ? WHERE patient_name = ?");
+            query = con1.prepareStatement("UPDATE appointment SET result = ? WHERE date = ?");
             query.setString(1, new_result);
-            query.setString(2, patient_name_output.getText());
+            query.setString(2, app_date_txt.getText());
             
             query.executeUpdate();
             
