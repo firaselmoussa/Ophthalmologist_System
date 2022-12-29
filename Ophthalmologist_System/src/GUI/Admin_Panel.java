@@ -56,6 +56,7 @@ public class Admin_Panel extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         appointment_name_txt = new javax.swing.JTextField();
         search_appointment_btn = new javax.swing.JButton();
+        refresh_appointments_table_btn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Admin Panel");
@@ -232,6 +233,13 @@ public class Admin_Panel extends javax.swing.JFrame {
             }
         });
 
+        refresh_appointments_table_btn.setText("↻");
+        refresh_appointments_table_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refresh_appointments_table_btnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -244,8 +252,10 @@ public class Admin_Panel extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(appointment_name_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(search_appointment_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(search_appointment_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(refresh_appointments_table_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -255,9 +265,10 @@ public class Admin_Panel extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(appointment_name_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(search_appointment_btn))
-                .addGap(25, 25, 25)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
+                    .addComponent(search_appointment_btn)
+                    .addComponent(refresh_appointments_table_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -337,6 +348,17 @@ public class Admin_Panel extends javax.swing.JFrame {
             Logger.getLogger(Admin_Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_refresh_patients_table_btnActionPerformed
+
+    private void refresh_appointments_table_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refresh_appointments_table_btnActionPerformed
+        try {
+            // TODO add your handling code here:
+            refresh_apointments_table(null);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Admin_Panel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin_Panel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_refresh_appointments_table_btnActionPerformed
 
     //REFRESH PATIENT TABLE
     private void refresh_patient_table(String name) throws ClassNotFoundException, SQLException{
@@ -467,6 +489,7 @@ public class Admin_Panel extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable patients_table;
+    private javax.swing.JButton refresh_appointments_table_btn;
     private javax.swing.JButton refresh_patients_table_btn;
     private javax.swing.JButton search_appointment_btn;
     private javax.swing.JButton search_patient_btn;
