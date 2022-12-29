@@ -27,6 +27,7 @@ public class Admin_Panel extends javax.swing.JFrame {
     public Admin_Panel() throws ClassNotFoundException, SQLException {
         initComponents();
         refresh_patient_table(null);
+        refresh_apointments_table(null);
     }
 
     /**
@@ -51,7 +52,7 @@ public class Admin_Panel extends javax.swing.JFrame {
         refresh_patients_table_btn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        appointments_table = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
@@ -183,7 +184,7 @@ public class Admin_Panel extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Appointments", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153))); // NOI18N
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        appointments_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -209,11 +210,11 @@ public class Admin_Panel extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setResizable(false);
-            jTable2.getColumnModel().getColumn(1).setResizable(false);
-            jTable2.getColumnModel().getColumn(2).setResizable(false);
+        jScrollPane2.setViewportView(appointments_table);
+        if (appointments_table.getColumnModel().getColumnCount() > 0) {
+            appointments_table.getColumnModel().getColumn(0).setResizable(false);
+            appointments_table.getColumnModel().getColumn(1).setResizable(false);
+            appointments_table.getColumnModel().getColumn(2).setResizable(false);
         }
 
         jLabel2.setText("Search by patient name :");
@@ -362,12 +363,45 @@ public class Admin_Panel extends javax.swing.JFrame {
                 }
                 
                 Df.addRow(v2);
-                
-            
-          
-            
+                           
         }
+    }
+    
+    
+    private void refresh_apointments_table(String patient_name) throws ClassNotFoundException, SQLException{
         
+        int c;
+
+        
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con1 = DriverManager.getConnection("jdbc:mysql://localhost/ophthalmologist_db", "root", "");
+            
+            if(patient_name == null)
+                query = con1.prepareStatement("SELECT * FROM appointment");
+            else{
+                query = con1.prepareStatement("SELECT * FROM patient WHERE patient_name = ?");
+                query.setString(1, patient_name);
+            }
+            
+            ResultSet rs = query.executeQuery();
+            ResultSetMetaData Rss = rs.getMetaData();
+            c = Rss.getColumnCount();
+            
+            DefaultTableModel Df = (DefaultTableModel)appointments_table.getModel();
+            Df.setRowCount(0);
+            
+            while(rs.next()){
+                Vector v2 = new Vector();
+                
+                for(int i = 1; i <= c; i++){
+                    v2.add(rs.getString("patient_name"));
+                    v2.add(rs.getString("date"));
+                    v2.add(rs.getString("result"));
+                }
+                
+                Df.addRow(v2);
+    
+        }
         
     }
     /**
@@ -413,6 +447,7 @@ public class Admin_Panel extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add_appointment_btn;
+    private javax.swing.JTable appointments_table;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
@@ -423,7 +458,6 @@ public class Admin_Panel extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTable patients_table;
     private javax.swing.JButton refresh_patients_table_btn;
