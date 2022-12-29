@@ -1,5 +1,6 @@
 
-import GUI.New_Appointment;
+import GUI.Admin_Panel;
+import java.sql.SQLException;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -15,9 +16,10 @@ public class Ophthalmologist_System {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
         // TODO code application logic here
-        new New_Appointment();
+        Admin_Panel admin_panel = new Admin_Panel();
+        admin_panel.setVisible(true);
     }
     
 }
